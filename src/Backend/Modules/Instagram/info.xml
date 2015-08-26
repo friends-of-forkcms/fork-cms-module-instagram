@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<name>Instagram</name>
+	<version>1.0.0</version>
+	<requirements>
+		<minimum_version>3.0.0</minimum_version>
+	</requirements>
+	<description>
+		<![CDATA[
+			Display your instagram feed on your website.
+		]]>
+	</description>
+	<authors>
+		<author>
+			<name><![CDATA[Jesse Dobbelaere]]></name>
+			<url><![CDATA[http://www.jessedobbelae.re]]></url>
+		</author>
+	</authors>
+	<events>
+		<event application="backend" name="after_saved_settings"><![CDATA[Triggered when the Instagram settings are saved.]]></event>
+		<event application="backend" name="after_oauth"><![CDATA[Triggered when the Instagram oauth is done.]]></event>
+	</events>
+</module>
