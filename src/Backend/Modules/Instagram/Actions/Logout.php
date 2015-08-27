@@ -19,12 +19,15 @@ use Backend\Core\Engine\Model as BackendModel;
  */
 class Logout extends BackendBaseAction
 {
+    /**
+     * Execute the action
+     */
     public function execute()
     {
-        $this->get('fork.settings')->set('Instagram', 'client_id', NULL);
-        $this->get('fork.settings')->set('Instagram', 'client_secret', NULL);
-        $this->get('fork.settings')->set('Instagram', 'username', NULL);
-        $this->get('fork.settings')->set('Instagram', 'access_token', NULL);
+        $this->get('fork.settings')->set('Instagram', 'client_id', null);
+        $this->get('fork.settings')->set('Instagram', 'client_secret', null);
+        $this->get('fork.settings')->set('Instagram', 'username', null);
+        $this->get('fork.settings')->set('Instagram', 'access_token', null);
 
         $this->redirect(BackendModel::createURLForAction('Settings'));
     }

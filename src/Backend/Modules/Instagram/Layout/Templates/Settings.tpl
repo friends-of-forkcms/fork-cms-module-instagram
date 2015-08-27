@@ -37,10 +37,6 @@
 				<h3>{$lblSettings|ucfirst}</h3>
 			</div>
 			<div class="options">
-				<label for="username">{$lblUsername|ucfirst}</label>
-				{$txtUsername} {$txtUsernameError}
-			</div>
-			<div class="options">
 				<label for="numberRecentItems">{$lblNumberOfRecentItems|ucfirst}</label>
 				{$ddmNumRecentItems} {$ddmNumRecentItemsError}
 			</div>

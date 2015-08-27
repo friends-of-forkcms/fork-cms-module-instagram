@@ -20,6 +20,9 @@ use Backend\Modules\Instagram\Engine\Helper;
  */
 class Oauth extends BackendBaseAction
 {
+    /**
+     * Execute the action
+     */
     public function execute()
     {
         parent::execute();
@@ -32,13 +35,12 @@ class Oauth extends BackendBaseAction
         $client_secret = $this->get('fork.settings')->get($this->URL->getModule(), 'client_secret');
 
         // if no settings configured, redirect
-        if(!isset($client_id) || !isset($client_secret)) {
+        if (!isset($client_id) || !isset($client_secret)) {
             $this->redirect(BackendModel::createURLForAction('Settings') . '&error=non-existing');
         }
 
         // first visit (otherwise instagram would have added a parameter)
-        if($oAuthCode == '')
-        {
+        if ($oAuthCode == '') {
             // get Instagram api token
             $instagram_login_url = Helper::getLoginUrl($client_id, SITE_URL . BackendModel::createURLForAction('Oauth'));
             $this->redirect($instagram_login_url);
@@ -49,7 +51,7 @@ class Oauth extends BackendBaseAction
             // exchanging the instagram login code for an access token
             $access_token = Helper::getOAuthToken($client_id, $client_secret, $oAuthCode, SITE_URL . BackendModel::createURLForAction('Oauth'), true);
 
-            if(isset($access_token)) {
+            if (isset($access_token)) {
                 // save access_token to settings
                 $this->get('fork.settings')->set(
                     $this->URL->getModule(),

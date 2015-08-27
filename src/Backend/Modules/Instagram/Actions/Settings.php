@@ -44,15 +44,13 @@ class Settings extends BackendBaseActionEdit
         $this->frm = new BackendForm('settings');
 
         // We are not authenticated, so let the user fill in their credentials
-        if($this->get('fork.settings')->get($this->URL->getModule(), 'access_token') == '') {
+        if ($this->get('fork.settings')->get($this->URL->getModule(), 'access_token') == '') {
             $this->frm->addText('client_id', $this->get('fork.settings')->get($this->URL->getModule(), 'client_id'));
             $this->frm->addText('client_secret', $this->get('fork.settings')->get($this->URL->getModule(), 'client_secret'));
             $this->tpl->assign('authenticate', true);
 
             return;
         } else {
-            $this->frm->addText('username', $this->get('fork.settings')->get($this->URL->getModule(), 'username'));
-
             // Total number of recent images fetched by the module
             $this->frm->addDropdown(
                 'num_recent_items',
@@ -77,26 +75,6 @@ class Settings extends BackendBaseActionEdit
                 'num_recent_items',
                 (int) $this->frm->getField('num_recent_items')->getValue()
             );
-
-            $username = $this->frm->getField('username')->getValue();
-            $this->get('fork.settings')->set(
-                $this->URL->getModule(),
-                'username',
-                $username
-            );
-
-            if($username != '') {
-                $userObj = Helper::searchUser($username);
-                $userId = $userObj->data[0]->id;
-
-                if(isset($userId)) {
-                    $this->get('fork.settings')->set(
-                        $this->URL->getModule(),
-                        'user_id',
-                        $userId
-                    );
-                }
-            }
 
             // trigger event
             BackendModel::triggerEvent($this->getModule(), 'after_saved_settings');

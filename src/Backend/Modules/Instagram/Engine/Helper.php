@@ -13,6 +13,7 @@ use Backend\Core\Engine\Model as BackendModel;
 
 /**
  * In this file we store all generic functions that we will be using in the instagram module.
+ * Created with help from https://github.com/cosenary/Instagram-PHP-API
  *
  * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
@@ -205,17 +206,23 @@ class Helper
         }
         return $headers;
     }
-
+    /**
+     * Get the API key (client ID) from the settings
+     *
+     * @return String The API key
+     */
     private static function getApiKey()
     {
         return BackendModel::get('fork.settings')->get('Instagram', 'client_id');
     }
 
+    /**
+     * Get the access token from the settings
+     *
+     * @return String Access token
+     */
     private static function getAccessToken()
     {
         return BackendModel::get('fork.settings')->get('Instagram', 'access_token');
     }
-
-
-
 }
