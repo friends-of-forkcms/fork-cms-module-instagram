@@ -1,0 +1,11 @@
+.instagram-grid-container {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.instagram-grid-container li {
+	float: left;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
