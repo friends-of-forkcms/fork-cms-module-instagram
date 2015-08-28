@@ -35,9 +35,10 @@
 				    <ul>
 				        <li>Kies een unieke applicatienaam</li>
 				        <li>Vul de correcte URL in van deze website</li>
+				        <li>De redirect URL hoort er als volgt uit te zien: http://domeinnaam.be/private/nl/instagram/oauth (vul eigen domeinnaam in)</li>
 				    </ul>
 			      </li>
-				  <li>Kopieer de gegenereerde client ID en client secret naar deze pagina.</li>
+				  <li>Kopieer de gegenereerde client ID en client secret naar deze pagina. Druk vervolgens op de authenticate button. Een Instagram pagina wordt geopend om toestemming te vragen. Daarna wordt u weer omgeleid naar deze pagina en bent u ingelogd.</li>
 				</ol>
 			  </p>]]></translation>
 				<translation language="en"><![CDATA[
@@ -52,9 +53,10 @@
 				    <ul>
 				        <li>Choose a unique application name</li>
 				        <li>Fill in the correct URL of this website</li>
+				        <li>The redirect URL should be similar to: http://yourweburl.com/private/en/instagram/oauth (fill in your website url).</li>
 				    </ul>
 			      </li>
-				  <li>Copy the generated client id and client secret to this page.</li>
+				  <li>Copy the generated client id and client secret to this page. Then press the authenticate button. You get redirected to an Instagram page that asks you to authorize the request. After that, you get redirected to this settings page and you're logged in.</li>
 				</ol>
 			  </p>]]>
 			</translation>
