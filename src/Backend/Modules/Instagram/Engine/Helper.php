@@ -73,7 +73,7 @@ class Helper
         if ($limit > 0) {
             $params['count'] = $limit;
         }
-        return self::makeApiCall('users/search', false, $params);
+        return self::makeApiCall('users/search', true, $params);
     }
 
     /**
