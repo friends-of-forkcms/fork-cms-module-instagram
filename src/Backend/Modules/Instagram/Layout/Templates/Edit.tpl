@@ -16,62 +16,6 @@
         </div>
     </div>
 
-
-    {*<div class="tabs">*}
-        {*<ul>*}
-            {*<li><a href="#tabContent">{$lblContent|ucfirst}</a></li>*}
-            {*<li><a href="#tabSEO">{$lblSEO|ucfirst}</a></li>*}
-        {*</ul>*}
-
-        {*<div id="tabContent">*}
-            {*<table border="0" cellspacing="0" cellpadding="0" width="100%">*}
-                {*<tr>*}
-                    {*<td id="leftColumn">*}
-
-                        {*<div class="box">*}
-                            {*<div class="heading">*}
-                                {*<h3>*}
-                                    {*<label for="function">{$lblFunction|ucfirst}</label>*}
-                                {*</h3>*}
-                            {*</div>*}
-                            {*<div class="options">*}
-                                {*{$txtFunction} {$txtFunctionError}*}
-                            {*</div>*}
-                        {*</div>*}
-
-                            {*<div class="box">*}
-                                {*<div class="heading">*}
-                                    {*<h3>*}
-                                        {*<label for="photo">{$lblPhoto|ucfirst}</label>*}
-                                    {*</h3>*}
-                                {*</div>*}
-                                {*<div class="options">*}
-                                    {*{option:item.photo}*}
-                                        {*<p><img src="{$FRONTEND_FILES_URL}/team/photo/150x150/{$item.photo}"/></p>*}
-                                    {*{/option:item.photo}*}
-                                    {*<p>*}
-                                        {*{$filePhoto} {$filePhotoError}*}
-                                    {*</p>*}
-                                {*</div>*}
-                            {*</div>*}
-
-
-                    {*</td>*}
-
-                    {*<td id="sidebar">*}
-
-
-                    {*</td>*}
-                {*</tr>*}
-            {*</table>*}
-        {*</div>*}
-
-        {*<div id="tabSEO">*}
-            {*{include:{$BACKEND_CORE_PATH}/Layout/Templates/Seo.tpl}*}
-        {*</div>*}
-
-    {*</div>*}
-
     <div class="fullwidthOptions">
         <a href="{$var|geturl:'delete'}&amp;id={$item.id}" data-message-id="confirmDelete" class="askConfirmation button linkButton icon iconDelete">
             <span>{$lblDelete|ucfirst}</span>

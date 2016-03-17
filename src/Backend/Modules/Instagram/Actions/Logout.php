@@ -24,10 +24,22 @@ class Logout extends BackendBaseAction
      */
     public function execute()
     {
+        // save access_token to settings
+        $instagramUserId = $this->get('fork.settings')->get(
+            $this->URL->getModule(),
+            'default_instagram_user_id',
+            false
+        );
+
+        if ($instagramUserId) {
+            BackendInstagramModel::delete($instagramUserId);
+        }
+
         $this->get('fork.settings')->set('Instagram', 'client_id', null);
         $this->get('fork.settings')->set('Instagram', 'client_secret', null);
         $this->get('fork.settings')->set('Instagram', 'username', null);
         $this->get('fork.settings')->set('Instagram', 'access_token', null);
+        $this->get('fork.settings')->set('Instagram', 'default_instagram_user_id', null);
 
         $this->redirect(BackendModel::createURLForAction('Settings'));
     }

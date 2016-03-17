@@ -42,7 +42,6 @@ class Add extends ActionAdd
         $this->frm = new Form('add');
 
         $this->frm->addText('username', null, null, 'inputText title', 'inputTextError title');
-        $this->frm->addText('function');
 
         // meta
         $this->meta = new Meta($this->frm, null, 'username', true);

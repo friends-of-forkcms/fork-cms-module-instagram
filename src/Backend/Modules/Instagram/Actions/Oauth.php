@@ -12,6 +12,7 @@ namespace Backend\Modules\Instagram\Actions;
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Instagram\Engine\Helper;
+use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the settings-action, it will display a form to set general instagram settings
@@ -31,8 +32,8 @@ class Oauth extends BackendBaseAction
         $oAuthCode = $this->getParameter('code', 'string', '');
 
         // get settings
-        $client_id = $this->get('fork.settings')->get($this->URL->getModule(), 'client_id');
-        $client_secret = $this->get('fork.settings')->get($this->URL->getModule(), 'client_secret');
+        $client_id = BackendModel::getModuleSetting($this->URL->getModule(), 'client_id');
+        $client_secret = BackendModel::getModuleSetting($this->URL->getModule(), 'client_secret');
 
         // if no settings configured, redirect
         if (!isset($client_id) || !isset($client_secret)) {
@@ -49,14 +50,34 @@ class Oauth extends BackendBaseAction
         // oauth code is set (meaning we got redirected from instagram)
         else {
             // exchanging the instagram login code for an access token
-            $access_token = Helper::getOAuthToken($client_id, $client_secret, $oAuthCode, SITE_URL . BackendModel::createURLForAction('Oauth'), true);
+            $authenticationData = Helper::getOAuthToken($client_id, $client_secret, $oAuthCode, SITE_URL . BackendModel::createURLForAction('Oauth'), false);
 
-            if (isset($access_token)) {
+            // define variables
+            $userId = $authenticationData->user->id;
+            $userName = $authenticationData->user->username;
+            $accessToken = $authenticationData->access_token;
+
+            if (isset($accessToken)) {
+                $instagramUser = array(
+                    'user_id' => $userId,
+                    'username' => $userName,
+                    'locked' => 'Y',
+                );
+
+                $instagramUser['id'] = BackendInstagramModel::insert($instagramUser);
+
                 // save access_token to settings
                 $this->get('fork.settings')->set(
                     $this->URL->getModule(),
                     'access_token',
-                    $access_token
+                    $accessToken
+                );
+
+                // save access_token to settings
+                $this->get('fork.settings')->set(
+                    $this->URL->getModule(),
+                    'default_instagram_user_id',
+                    $instagramUser['id']
                 );
 
                 // trigger event

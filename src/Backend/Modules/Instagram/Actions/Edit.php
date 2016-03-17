@@ -48,6 +48,12 @@ class Edit extends ActionEdit
         }
 
         $this->record = BackendInstagramModel::get($this->id);
+
+        if ($this->record['locked'] == 'Y') {
+            $this->redirect(
+                Model::createURLForAction('Index') . '&error=is-locked'
+            );
+        }
     }
 
     /**
