@@ -33,6 +33,12 @@ class Model
      */
     public static function delete($id)
     {
+        $record = self::get($id);
+
+        // delete extra
+        BackendModel::deleteExtraById($record['extra_id'], true);
+
+        // delete user id
         BackendModel::get('database')->delete('instagram_users', 'id = ?', (int) $id);
     }
 

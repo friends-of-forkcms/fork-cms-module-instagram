@@ -69,6 +69,10 @@
 			<translation language="nl"><![CDATA[Account werd succesvol geauthenticeerd.]]></translation>
 			<translation language="en"><![CDATA[Account succesfully authenticated.]]></translation>
 		</item>
+		<item type="error" name="IsLocked">
+			<translation language="nl"><![CDATA[Deze widget is automatisch aangemaakt bij het toevoegen van uw APP credentials. U kan deze widget niet wijzigen.]]></translation>
+			<translation language="en"><![CDATA[This widget has been automatically created when you added your APP credentials. You can't edit this widget.]]></translation>
+		</item>
 	</Instagram>
 	<Core>
 	  <item type="label" name="Instagram">

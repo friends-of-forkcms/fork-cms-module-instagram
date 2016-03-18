@@ -16,8 +16,7 @@ The Fork CMS Instagram module let's you display the X most recent Instagram imag
 5. Go to `Settings > Modules > Instagram`. 
 6. Register a new client on the [Instagram developer page](https://instagram.com/developer/clients/manage/). Fill in your website/appname, the correct website URL and a redirect URL. The redirect URL should be similar to: `http://yourweburl.com/private/en/instagram/oauth` (fill in your website url).
 7. Copy the client id and client secret to the Fork settings page and press the authenticate button. You get redirected to an Instagram page where you need to authorize the request. After that, you get redirected back to the Fork CMS settings and you’re logged in.
-8. Go to `Modules > Instagram` and press the `add user` button. Fill in an Instagram username and save. A widget is now generated, which you can insert into any page. 
-5. Have fun!
+8. Have fun!
 
 ## TODO
 - [ ] Create Instagram feeds based on hashtags

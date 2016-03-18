@@ -1,10 +1,10 @@
 <?php
 
-namespace Backend\Modules\Team\Actions;
+namespace Backend\Modules\Instagram\Actions;
 
 use Backend\Core\Engine\Base\ActionDelete;
 use Backend\Core\Engine\Model;
-use Backend\Modules\Team\Engine\Model as BackendTeamModel;
+use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the delete-action, it deletes an item
@@ -21,11 +21,17 @@ class Delete extends ActionDelete
         $this->id = $this->getParameter('id', 'int');
 
         // does the item exist
-        if ($this->id !== null && BackendTeamModel::exists($this->id)) {
+        if ($this->id !== null && BackendInstagramModel::exists($this->id)) {
             parent::execute();
-            $this->record = (array) BackendTeamModel::get($this->id);
+            $this->record = (array) BackendInstagramModel::get($this->id);
 
-            BackendTeamModel::delete($this->id);
+            if ($this->record['locked'] == 'Y') {
+                $this->redirect(
+                    Model::createURLForAction('Index') . '&error=is-locked'
+                );
+            }
+
+            BackendInstagramModel::delete($this->id);
 
             Model::triggerEvent(
                 $this->getModule(), 'after_delete',
