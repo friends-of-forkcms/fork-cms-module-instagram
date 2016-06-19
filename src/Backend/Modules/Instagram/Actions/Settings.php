@@ -2,17 +2,9 @@
 
 namespace Backend\Modules\Instagram\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Backend\Core\Engine\Base\ActionEdit as BackendBaseActionEdit;
 use Backend\Core\Engine\Form as BackendForm;
 use Backend\Core\Engine\Model as BackendModel;
-use Backend\Modules\Instagram\Engine\Helper;
 
 /**
  * This is the settings-action, it will display a form to set general instagram settings
@@ -40,7 +32,7 @@ class Settings extends BackendBaseActionEdit
      */
     private function loadForm()
     {
-        // init settings form
+        // Init settings form
         $this->frm = new BackendForm('settings');
 
         // We are not authenticated, so let the user fill in their credentials
@@ -66,7 +58,7 @@ class Settings extends BackendBaseActionEdit
     private function validateForm()
     {
         if (!$this->frm->isSubmitted()) {
-            return;
+            return false;
         }
 
         if ($this->frm->existsField('num_recent_items')) {
@@ -76,10 +68,10 @@ class Settings extends BackendBaseActionEdit
                 (int) $this->frm->getField('num_recent_items')->getValue()
             );
 
-            // trigger event
+            // Trigger event
             BackendModel::triggerEvent($this->getModule(), 'after_saved_settings');
 
-            // redirect to the settings page
+            // Redirect to the settings page
             $this->redirect(BackendModel::createURLForAction('Settings') . '&report=saved');
         }
 
@@ -102,7 +94,7 @@ class Settings extends BackendBaseActionEdit
             $this->frm->getField('client_secret')->getValue()
         );
 
-        // we need to authenticate, redirect to oauth
+        // We need to authenticate, redirect to oauth
         $this->redirect(BackendModel::createURLForAction('oauth'));
     }
 }

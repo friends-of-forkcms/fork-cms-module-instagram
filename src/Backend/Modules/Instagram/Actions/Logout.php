@@ -2,15 +2,9 @@
 
 namespace Backend\Modules\Instagram\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model as BackendModel;
+use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the logout-action, it will remove the settings
@@ -24,22 +18,20 @@ class Logout extends BackendBaseAction
      */
     public function execute()
     {
-        // save access_token to settings
-        $instagramUserId = $this->get('fork.settings')->get(
-            $this->URL->getModule(),
-            'default_instagram_user_id',
-            false
-        );
+        $settingsService = $this->get('fork.settings');
+
+        // Save access_token to settings
+        $instagramUserId = $settingsService->get($this->URL->getModule(), 'default_instagram_user_id', false);
 
         if ($instagramUserId) {
             BackendInstagramModel::delete($instagramUserId);
         }
 
-        $this->get('fork.settings')->set('Instagram', 'client_id', null);
-        $this->get('fork.settings')->set('Instagram', 'client_secret', null);
-        $this->get('fork.settings')->set('Instagram', 'username', null);
-        $this->get('fork.settings')->set('Instagram', 'access_token', null);
-        $this->get('fork.settings')->set('Instagram', 'default_instagram_user_id', null);
+        $settingsService->set('Instagram', 'client_id', null);
+        $settingsService->set('Instagram', 'client_secret', null);
+        $settingsService->set('Instagram', 'username', null);
+        $settingsService->set('Instagram', 'access_token', null);
+        $settingsService->set('Instagram', 'default_instagram_user_id', null);
 
         $this->redirect(BackendModel::createURLForAction('Settings'));
     }

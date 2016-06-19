@@ -2,16 +2,8 @@
 
 namespace Backend\Modules\Instagram\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
 use Backend\Core\Engine\Authentication;
-use Backend\Core\Engine\DataGridArray;
 use Backend\Core\Engine\DataGridDB;
 use Backend\Core\Engine\Language;
 use Backend\Core\Engine\Model;
@@ -46,13 +38,13 @@ class Index extends BackendBaseActionIndex
             Language::getWorkingLanguage()
         );
 
-        // reform date
+        // Reform date
         $this->dataGrid->setColumnFunction(
             array('Backend\Core\Engine\DataGridFunctions', 'getLongDate'),
             array('[created_on]'), 'created_on', true
         );
 
-        // check if this action is allowed
+        // Check if this action is allowed
         if (Authentication::isAllowedAction('Edit')) {
             $this->dataGrid->addColumn(
                 'edit', null, Language::lbl('Edit'),

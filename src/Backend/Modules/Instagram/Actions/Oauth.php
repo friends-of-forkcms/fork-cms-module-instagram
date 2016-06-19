@@ -2,13 +2,6 @@
 
 namespace Backend\Modules\Instagram\Actions;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Backend\Core\Engine\Base\Action as BackendBaseAction;
 use Backend\Core\Engine\Model as BackendModel;
 use Backend\Modules\Instagram\Engine\Helper;
@@ -28,31 +21,38 @@ class Oauth extends BackendBaseAction
     {
         parent::execute();
 
-        // get the redirect code if there is one (if you are redirected here from the Instagram authentication)
+        // Get the redirect code if there is one (if you are redirected here from the Instagram authentication)
         $oAuthCode = $this->getParameter('code', 'string', '');
 
-        // get settings
-        $client_id = BackendModel::getModuleSetting($this->URL->getModule(), 'client_id');
-        $client_secret = BackendModel::getModuleSetting($this->URL->getModule(), 'client_secret');
+        // Get settings
+        $settingsService = $this->get('fork.settings');
+        $client_id = $settingsService->get($this->URL->getModule(), 'client_id');
+        $client_secret = $settingsService->get($this->URL->getModule(), 'client_secret');
 
-        // if no settings configured, redirect
-        if (!isset($client_id) || !isset($client_secret)) {
+        // If no settings configured, redirect
+        if (empty($client_id) || empty($client_secret)) {
             $this->redirect(BackendModel::createURLForAction('Settings') . '&error=non-existing');
         }
 
-        // first visit (otherwise instagram would have added a parameter)
+        // First visit? (otherwise instagram would have added a parameter)
         if ($oAuthCode == '') {
-            // get Instagram api token
+            // Get Instagram api token
             $instagram_login_url = Helper::getLoginUrl($client_id, SITE_URL . BackendModel::createURLForAction('Oauth'));
             $this->redirect($instagram_login_url);
         }
 
-        // oauth code is set (meaning we got redirected from instagram)
+        // oAuth code is set (meaning we got redirected from instagram)
         else {
-            // exchanging the instagram login code for an access token
-            $authenticationData = Helper::getOAuthToken($client_id, $client_secret, $oAuthCode, SITE_URL . BackendModel::createURLForAction('Oauth'), false);
+            // Exchanging the instagram login code for an access token
+            $authenticationData = Helper::getOAuthToken(
+                $client_id,
+                $client_secret,
+                $oAuthCode,
+                SITE_URL . BackendModel::createURLForAction('Oauth'),
+                false
+            );
 
-            // define variables
+            // Define variables
             $userId = $authenticationData->user->id;
             $userName = $authenticationData->user->username;
             $accessToken = $authenticationData->access_token;
@@ -66,24 +66,24 @@ class Oauth extends BackendBaseAction
 
                 $instagramUser['id'] = BackendInstagramModel::insert($instagramUser);
 
-                // save access_token to settings
+                // Save access_token to settings
                 $this->get('fork.settings')->set(
                     $this->URL->getModule(),
                     'access_token',
                     $accessToken
                 );
 
-                // save access_token to settings
+                // Save access_token to settings
                 $this->get('fork.settings')->set(
                     $this->URL->getModule(),
                     'default_instagram_user_id',
                     $instagramUser['id']
                 );
 
-                // trigger event
+                // Trigger event
                 BackendModel::triggerEvent($this->getModule(), 'after_oauth');
 
-                // successfully authenticated
+                // Successfully authenticated
                 $this->redirect(BackendModel::createURLForAction('Settings') . '&report=authentication_success');
             } else {
                 $this->redirect(BackendModel::createURLForAction('Settings') . '&error=authentication_failed');

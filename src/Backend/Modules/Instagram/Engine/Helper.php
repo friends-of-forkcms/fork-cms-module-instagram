@@ -2,13 +2,6 @@
 
 namespace Backend\Modules\Instagram\Engine;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Backend\Core\Engine\Model as BackendModel;
 
 /**
@@ -38,18 +31,21 @@ class Helper
     /**
      * Get the OAuth data of a user by the returned callback code.
      *
+     * @param string $clientId
+     * @param string $clientSecret
      * @param string $code OAuth2 code variable (after a successful login)
+     * @param string $callbackUrl
      * @param bool $token If it's true, only the access token will be returned
      *
      * @return mixed
      */
-    public static function getOAuthToken($client_id, $client_secret, $code, $callback_url, $token = false)
+    public static function getOAuthToken($clientId, $clientSecret, $code, $callbackUrl, $token = false)
     {
         $apiData = array(
             'grant_type' => 'authorization_code',
-            'client_id' => $client_id,
-            'client_secret' => $client_secret,
-            'redirect_uri' => $callback_url,
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect_uri' => $callbackUrl,
             'code' => $code
         );
 
@@ -106,15 +102,14 @@ class Helper
     /**
      * Generates the OAuth login URL.
      *
-     * @param string[] $scopes Requesting additional permissions
-     *
+     * @param string $clientId
+     * @param string $callbackUrl
      * @return string Instagram OAuth login URL
-     *
      * @throws \Exception
      */
-    public static function getLoginUrl($client_id, $callback_url)
+    public static function getLoginUrl($clientId, $callbackUrl)
     {
-        return self::API_OAUTH_URL . '?client_id=' . $client_id . '&redirect_uri=' . urlencode($callback_url) . '&response_type=code';
+        return self::API_OAUTH_URL . '?client_id=' . $clientId . '&redirect_uri=' . urlencode($callbackUrl) . '&response_type=code';
     }
 
     /**
@@ -124,21 +119,15 @@ class Helper
      * @param bool $auth Whether the function requires an access token
      * @param array $params Additional request parameters
      * @param string $method Request type GET|POST
-     *
      * @return mixed
-     *
      * @throws \Exception
      */
     protected static function makeApiCall($function, $auth = false, $params = null, $method = 'GET')
     {
         if (!$auth) {
-            // if the call doesn't requires authentication
+            // If the call doesn't requires authentication
             $authMethod = '?client_id=' . self::getApiKey();
         } else {
-            // if the call needs an authenticated user
-//            if (!isset($this->_accesstoken)) {
-//                throw new \Exception("Error: _makeCall() | $function - This method requires an authenticated users access token.");
-//            }
             $authMethod = '?access_token=' . self::getAccessToken();
         }
         $paramString = null;
@@ -147,7 +136,7 @@ class Helper
         }
         $apiCall = self::API_URL . $function . $authMethod . (('GET' === $method) ? $paramString : null);
 
-        // signed header of POST/DELETE requests
+        // Signed header of POST/DELETE requests
         $headerData = array('Accept: application/json');
 
         $ch = curl_init();
@@ -169,14 +158,13 @@ class Helper
         }
         $jsonData = curl_exec($ch);
 
-        // split header from JSON data
-        // and assign each to a variable
+        // Split header from JSON data and assign each to a variable
         list($headerContent, $jsonData) = explode("\r\n\r\n", $jsonData, 2);
 
-        // convert header content into an array
+        // Convert header content into an array
         $headers = self::processHeaders($headerContent);
 
-        // get the 'X-Ratelimit-Remaining' header value
+        // Get the 'X-Ratelimit-Remaining' header value
         //$this->_xRateLimitRemaining = $headers['X-Ratelimit-Remaining'];
 
         if (!$jsonData) {
@@ -190,7 +178,6 @@ class Helper
      * Read and process response header content.
      *
      * @param array
-     *
      * @return array
      */
     private static function processHeaders($headerContent)

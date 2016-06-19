@@ -5,13 +5,9 @@ namespace Backend\Modules\Instagram\Actions;
 use Backend\Core\Engine\Base\ActionEdit;
 use Backend\Core\Engine\Form;
 use Backend\Core\Engine\Language;
-use Backend\Core\Engine\Meta;
 use Backend\Core\Engine\Model;
 use Backend\Modules\Instagram\Engine\Helper;
 use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
-use Backend\Modules\Search\Engine\Model as BackendSearchModel;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
-use Backend\Modules\Users\Engine\Model as BackendUsersModel;
 
 /**
  * This is the edit-action, it will display a form with the item data to edit
@@ -42,17 +38,13 @@ class Edit extends ActionEdit
     {
         $this->id = $this->getParameter('id', 'int', null);
         if ($this->id == null || !BackendInstagramModel::exists($this->id)) {
-            $this->redirect(
-                Model::createURLForAction('Index') . '&error=non-existing'
-            );
+            $this->redirect(Model::createURLForAction('Index') . '&error=non-existing');
         }
 
         $this->record = BackendInstagramModel::get($this->id);
 
         if ($this->record['locked'] == 'Y') {
-            $this->redirect(
-                Model::createURLForAction('Index') . '&error=is-locked'
-            );
+            $this->redirect(Model::createURLForAction('Index') . '&error=is-locked');
         }
     }
 
@@ -61,14 +53,9 @@ class Edit extends ActionEdit
      */
     protected function loadForm()
     {
-        // create form
+        // Create form
         $this->frm = new Form('edit');
-
         $this->frm->addText('username', $this->record['username'], null, 'inputText title', 'inputTextError title');
-
-        // meta
-//        $this->meta = new Meta($this->frm, $this->record['meta_id'], 'username', true);
-//        $this->meta->setUrlCallBack('Backend\Modules\Instagram\Engine\Model', 'getUrl', array($this->record['id']));
     }
 
     /**
@@ -78,16 +65,14 @@ class Edit extends ActionEdit
     {
         parent::parse();
 
-        // get url
+        // Get url
         $url = Model::getURLForBlock($this->URL->getModule(), 'Detail');
         $url404 = Model::getURL(404);
 
-        // parse additional variables
+        // Parse additional variables
         if ($url404 != $url) {
             $this->tpl->assign('detailURL', SITE_URL . $url);
         }
-        //$this->record['url'] = $this->meta->getURL();
-
 
         $this->tpl->assign('item', $this->record);
     }
@@ -105,9 +90,6 @@ class Edit extends ActionEdit
 
             $fields['username']->isFilled(Language::err('FieldIsRequired'));
 
-            // validate meta
-            //$this->meta->validate();
-
             if ($this->frm->isCorrect()) {
                 $item['id'] = $this->id;
 
@@ -119,20 +101,14 @@ class Edit extends ActionEdit
                     $userId = $userObj->data[0]->id;
                     $item['user_id'] = $userId;
                 } else {
-                    $this->redirect(
-                        Model::createURLForAction('Index') . '&error=api_error'
-                    );
+                    $this->redirect(Model::createURLForAction('Index') . '&error=api_error');
                 }
 
                 BackendInstagramModel::update($item);
                 $item['id'] = $this->id;
 
-                Model::triggerEvent(
-                    $this->getModule(), 'after_edit', $item
-                );
-                $this->redirect(
-                    Model::createURLForAction('Index') . '&report=edited&highlight=row-' . $item['id']
-                );
+                Model::triggerEvent($this->getModule(), 'after_edit', $item);
+                $this->redirect(Model::createURLForAction('Index') . '&report=edited&highlight=row-' . $item['id']);
             }
         }
     }

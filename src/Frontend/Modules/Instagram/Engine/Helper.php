@@ -52,10 +52,6 @@ class Helper
             // if the call doesn't requires authentication
             $authMethod = '?client_id=' . self::getApiKey();
         } else {
-            // if the call needs an authenticated user
-//            if (!isset($this->_accesstoken)) {
-//                throw new \Exception("Error: _makeCall() | $function - This method requires an authenticated users access token.");
-//            }
             $authMethod = '?access_token=' . self::getAccessToken();
         }
         $paramString = null;

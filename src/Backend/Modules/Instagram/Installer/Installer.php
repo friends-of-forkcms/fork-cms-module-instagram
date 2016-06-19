@@ -2,13 +2,6 @@
 
 namespace Backend\Modules\Instagram\Installer;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Backend\Core\Installer\ModuleInstaller;
 
 /**
@@ -47,13 +40,13 @@ class Installer extends ModuleInstaller
         $this->setSetting('Instagram', 'user_id', null);
         $this->setSetting('Instagram', 'access_token', null);
 
-        // set navigation
+        // Set navigation
         $navigationSettingsId = $this->setNavigation(null, 'Settings');
         $navigationModulesId = $this->setNavigation($navigationSettingsId, 'Modules');
         $this->setNavigation($navigationModulesId, 'Instagram', 'instagram/settings');
 
         $navigationModulesId = $this->setNavigation(null, 'Modules');
-        $navigationClassnameId = $this->setNavigation(
+        $this->setNavigation(
             $navigationModulesId,
             'Instagram',
             'instagram/index',

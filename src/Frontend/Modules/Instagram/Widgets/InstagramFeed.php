@@ -36,16 +36,16 @@ class InstagramFeed extends FrontendBaseWidget
     */
     private function parse()
     {
-        // add css
+        // Add css
         $this->header->addCSS('/src/Frontend/Modules/' . $this->getModule() . '/Layout/Css/Instagram.css');
 
-        // fetch instagram user
+        // Fetch instagram user
         $instagramUser = FrontendInstagramModel::get($this->data['id']);
 
-        // pass user info to javascript
+        // Pass user info to javascript
         $this->addJSData('user', $instagramUser);
 
-        // parse user info in template
+        // Parse user info in template
         $this->tpl->assign('user', $instagramUser);
     }
 }

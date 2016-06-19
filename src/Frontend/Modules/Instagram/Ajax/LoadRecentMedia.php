@@ -2,17 +2,9 @@
 
 namespace Frontend\Modules\Instagram\Ajax;
 
-/*
- * This file is part of Fork CMS.
- *
- * For the full copyright and license information, please view the license
- * file that was distributed with this source code.
- */
-
 use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Modules\Instagram\Engine\Model as FrontendInstagramModel;
-
 
 /**
  * Fetches the recent user media and passes it back to javascript
@@ -27,7 +19,7 @@ class LoadRecentMedia extends FrontendBaseAJAXAction
     private $recentCount = 10;
 
     /**
-     * @var Array The fetched images
+     * @var array The fetched images
      */
     private $images;
 
@@ -38,16 +30,16 @@ class LoadRecentMedia extends FrontendBaseAJAXAction
     {
         parent::execute();
 
-        // get POST parameters
+        // Get POST parameters
         $userId = \SpoonFilter::getPostValue('userId', null, '');
 
-        // get count settings
+        // Get count settings
         $this->recentCount = FrontendModel::get('fork.settings')->get('Instagram', 'num_recent_items', 10);
 
-        // get the images from the Instagram API
+        // Get the images from the Instagram API
         $this->images = FrontendInstagramModel::getRecentMedia($userId, $this->recentCount);
 
-        // output the result
+        // Output the result
         $this->output(self::OK, $this->images);
     }
 }

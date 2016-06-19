@@ -9,9 +9,6 @@ use Backend\Core\Engine\Meta;
 use Backend\Core\Engine\Model;
 use Backend\Modules\Instagram\Engine\Helper;
 use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
-use Backend\Modules\Search\Engine\Model as BackendSearchModel;
-use Backend\Modules\Tags\Engine\Model as BackendTagsModel;
-use Backend\Modules\Users\Engine\Model as BackendUsersModel;
 
 /**
  * This is the add-action, it will display a form to create a new item
@@ -43,7 +40,7 @@ class Add extends ActionAdd
 
         $this->frm->addText('username', null, null, 'inputText title', 'inputTextError title');
 
-        // meta
+        // Meta
         $this->meta = new Meta($this->frm, null, 'username', true);
     }
 
@@ -54,15 +51,14 @@ class Add extends ActionAdd
     {
         parent::parse();
 
-        // get url
+        // Get url
         $url = Model::getURLForBlock($this->URL->getModule(), 'Detail');
         $url404 = Model::getURL(404);
 
-        // parse additional variables
+        // Parse additional variables
         if ($url404 != $url) {
             $this->tpl->assign('detailURL', SITE_URL . $url);
         }
-        $this->record['url'] = $this->meta->getURL();
     }
 
     /**
@@ -73,39 +69,29 @@ class Add extends ActionAdd
         if ($this->frm->isSubmitted()) {
             $this->frm->cleanupFields();
 
-            // validation
+            // Validation
             $fields = $this->frm->getFields();
 
             $fields['username']->isFilled(Language::err('FieldIsRequired'));
 
-            // validate meta
-            //$this->meta->validate();
-
             if ($this->frm->isCorrect()) {
-                // build the item
+                // Build the item
                 $item['username'] = $fields['username']->getValue();
-//                $item['meta_id'] = $this->meta->save();
 
-                // lookup user id
+                // Lookup user id
                 $userObj = Helper::searchUser($item['username']);
                 if (isset($userObj->data)) {
                     $userId = $userObj->data[0]->id;
                     $item['user_id'] = $userId;
                 } else {
-                    $this->redirect(
-                        Model::createURLForAction('Index') . '&error=api_error'
-                    );
+                    $this->redirect(Model::createURLForAction('Index') . '&error=api_error');
                 }
 
-                // insert it
+                // Insert it
                 $item['id'] = BackendInstagramModel::insert($item);
+                Model::triggerEvent($this->getModule(), 'after_add', $item);
 
-                Model::triggerEvent(
-                    $this->getModule(), 'after_add', $item
-                );
-                $this->redirect(
-                    Model::createURLForAction('Index') . '&report=added&highlight=row-' . $item['id']
-                );
+                $this->redirect(Model::createURLForAction('Index') . '&report=added&highlight=row-' . $item['id']);
             }
         }
     }

@@ -1,93 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <locale>
-  <Backend>
-	<Instagram>
-		<item type="label" name="Instagram">
-			<translation language="nl"><![CDATA[Instagram]]></translation>
-			<translation language="en"><![CDATA[Instagram]]></translation>
-		</item>
-		<item type="label" name="NumberOfRecentItems">
-			<translation language="nl"><![CDATA[Aantal recente foto's]]></translation>
-			<translation language="en"><![CDATA[Number of recent photos]]></translation>
-		</item>
-		<item type="label" name="Logout">
-			<translation language="nl"><![CDATA[Uitloggen]]></translation>
-			<translation language="en"><![CDATA[Log out]]></translation>
-		</item>
-		<item type="label" name="ClientId">
-			<translation language="nl"><![CDATA[Client ID]]></translation>
-			<translation language="en"><![CDATA[Client ID]]></translation>
-		</item>
-		<item type="label" name="ClientSecret">
-			<translation language="nl"><![CDATA[Client Secret]]></translation>
-			<translation language="en"><![CDATA[Client Secret]]></translation>
-		</item>
-		<item type="message" name="AuthHelp">
-			<translation language="nl"><![CDATA[
-			  <h3>Hoe verkrijg je de authenticatiegegevens?</h3>
-			  <br/>
-			  <p>De Instagram API inschakelen</p>
-			  <p>
-				<ol>
-				  <li>Ga naar de <a href="https://instagram.com/developer/clients/manage/" target="_blank">Instagram developer webpagina</a>.</li>
-				  <li>Registreer een nieuwe client.</li>
-				  <li>
-				    <ul>
-				        <li>Kies een unieke applicatienaam</li>
-				        <li>Vul de correcte URL in van deze website</li>
-				        <li>De redirect URL hoort er als volgt uit te zien: http://domeinnaam.be/private/nl/instagram/oauth (vul eigen domeinnaam in)</li>
-				    </ul>
-			      </li>
-				  <li>Kopieer de gegenereerde client ID en client secret naar deze pagina. Druk vervolgens op de authenticate button. Een Instagram pagina wordt geopend om toestemming te vragen. Daarna wordt u weer omgeleid naar deze pagina en bent u ingelogd.</li>
-				</ol>
-			  </p>]]></translation>
-				<translation language="en"><![CDATA[
-			  <h3>How to receive instagram authentication data?</h3>
-			  <br/>
-			  <p>Enable the Instagram API</p>
-			  <p>
-				<ol>
-				  <li>Go to the <a href="https://instagram.com/developer/clients/manage/" target="_blank">Instagram developer webpage</a>.</li>
-				  <li>Register a new client.</li>
-				  <li>
-				    <ul>
-				        <li>Choose a unique application name</li>
-				        <li>Fill in the correct URL of this website</li>
-				        <li>The redirect URL should be similar to: http://yourweburl.com/private/en/instagram/oauth (fill in your website url).</li>
-				    </ul>
-			      </li>
-				  <li>Copy the generated client id and client secret to this page. Then press the authenticate button. You get redirected to an Instagram page that asks you to authorize the request. After that, you get redirected to this settings page and you're logged in.</li>
-				</ol>
-			  </p>]]>
-			</translation>
-		</item>
-		<item type="label" name="Authenticate">
-			<translation language="nl"><![CDATA[Authenticeer]]></translation>
-			<translation language="en"><![CDATA[Authenticate]]></translation>
-		</item>
-		<item type="message" name="AuthenticationSuccess">
-			<translation language="nl"><![CDATA[Account werd succesvol geauthenticeerd.]]></translation>
-			<translation language="en"><![CDATA[Account succesfully authenticated.]]></translation>
-		</item>
-		<item type="error" name="IsLocked">
-			<translation language="nl"><![CDATA[Deze widget is automatisch aangemaakt bij het toevoegen van uw APP credentials. U kan deze widget niet wijzigen.]]></translation>
-			<translation language="en"><![CDATA[This widget has been automatically created when you added your APP credentials. You can't edit this widget.]]></translation>
-		</item>
-	</Instagram>
-	<Core>
-	  <item type="label" name="Instagram">
-		  <translation language="nl"><![CDATA[Instagram]]></translation>
-		  <translation language="en"><![CDATA[Instagram]]></translation>
-	  </item>
-		<item type="label" name="AddUser">
-			<translation language="nl"><![CDATA[Gebruiker toevoegen]]></translation>
-			<translation language="en"><![CDATA[Add user]]></translation>
-		</item>
-    </Core>
-  </Backend>
-  <Frontend>
-	<Core>
+    <Backend>
+        <Instagram>
+            <item type="label" name="Instagram">
+                <translation language="nl"><![CDATA[Instagram]]></translation>
+                <translation language="en"><![CDATA[Instagram]]></translation>
+            </item>
+            <item type="label" name="NumberOfRecentItems">
+                <translation language="nl"><![CDATA[Aantal recente foto's]]></translation>
+                <translation language="en"><![CDATA[Number of recent photos]]></translation>
+            </item>
+            <item type="label" name="Logout">
+                <translation language="nl"><![CDATA[Uitloggen]]></translation>
+                <translation language="en"><![CDATA[Log out]]></translation>
+            </item>
+            <item type="label" name="ClientId">
+                <translation language="nl"><![CDATA[Client ID]]></translation>
+                <translation language="en"><![CDATA[Client ID]]></translation>
+            </item>
+            <item type="label" name="ClientSecret">
+                <translation language="nl"><![CDATA[Client Secret]]></translation>
+                <translation language="en"><![CDATA[Client Secret]]></translation>
+            </item>
+            <item type="message" name="AuthHelp">
+                <translation language="nl"><![CDATA[
+                  <p><strong><span class="fa fa-exclamation-triangle"></span>Hoe verkrijg je de authenticatiegegevens?</strong></p>
+                  <p>
+                    <ol>
+                      <li>Ga naar de <a href="https://instagram.com/developer/clients/manage/" target="_blank">Instagram developer webpagina</a>.</li>
+                      <li>Registreer een nieuwe client.</li>
+                      <li>
+                        <ul>
+                            <li>Kies een unieke applicatienaam</li>
+                            <li>Vul de correcte URL in van deze website</li>
+                            <li>De redirect URL hoort er als volgt uit te zien: http://domeinnaam.be/private/nl/instagram/oauth (vul eigen domeinnaam in)</li>
+                        </ul>
+                      </li>
+                      <li>Kopieer de gegenereerde client ID en client secret naar deze pagina. Druk vervolgens op de authenticate button. Een Instagram pagina wordt geopend om toestemming te vragen. Daarna wordt u weer omgeleid naar deze pagina en bent u ingelogd.</li>
+                    </ol>
+                  </p>]]>
+                </translation>
+                <translation language="en"><![CDATA[
+                  <p><strong><span class="fa fa-exclamation-triangle"></span>How to receive instagram authentication data?</strong></p>
+                  <p>
+                    <ol>
+                      <li>Go to the <a href="https://instagram.com/developer/clients/manage/" target="_blank">Instagram developer webpage</a>.</li>
+                      <li>Register a new client.</li>
+                      <li>
+                        <ul>
+                            <li>Choose a unique application name</li>
+                            <li>Fill in the correct URL of this website</li>
+                            <li>The redirect URL should be similar to: http://yourweburl.com/private/en/instagram/oauth (fill in your website url).</li>
+                        </ul>
+                      </li>
+                      <li>Copy the generated client id and client secret to this page. Then press the authenticate button. You get redirected to an Instagram page that asks you to authorize the request. After that, you get redirected to this settings page and you're logged in.</li>
+                    </ol>
+                  </p>]]>
+                </translation>
+            </item>
+            <item type="label" name="Authenticate">
+                <translation language="nl"><![CDATA[Authenticeer]]></translation>
+                <translation language="en"><![CDATA[Authenticate]]></translation>
+            </item>
+            <item type="message" name="AuthenticationSuccess">
+                <translation language="nl"><![CDATA[Account werd succesvol geauthenticeerd.]]></translation>
+                <translation language="en"><![CDATA[Account succesfully authenticated.]]></translation>
+            </item>
+            <item type="error" name="IsLocked">
+                <translation language="nl">
+                    <![CDATA[Deze widget is automatisch aangemaakt bij het toevoegen van uw APP credentials. U kan deze widget niet wijzigen.]]></translation>
+                <translation language="en">
+                    <![CDATA[This widget has been automatically created when you added your APP credentials. You can't edit this widget.]]></translation>
+            </item>
+        </Instagram>
+        <Core>
+            <item type="label" name="Instagram">
+                <translation language="nl"><![CDATA[Instagram]]></translation>
+                <translation language="en"><![CDATA[Instagram]]></translation>
+            </item>
+            <item type="label" name="AddUser">
+                <translation language="nl"><![CDATA[Gebruiker toevoegen]]></translation>
+                <translation language="en"><![CDATA[Add user]]></translation>
+            </item>
+        </Core>
+    </Backend>
+    <Frontend>
+        <Core>
 
-	</Core>
-  </Frontend>
+        </Core>
+    </Frontend>
 </locale>
