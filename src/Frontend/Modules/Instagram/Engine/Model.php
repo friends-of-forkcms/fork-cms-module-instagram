@@ -37,6 +37,6 @@ class Model
     public static function getRecentMedia($userId, $count = 10)
     {
         $recentData = Helper::getUserMedia($userId, $count);
-        return isset($recentData) ? $recentData->data : null;
+        return (isset($recentData) && isset($recentData->data)) ? $recentData->data : null;
     }
 }
