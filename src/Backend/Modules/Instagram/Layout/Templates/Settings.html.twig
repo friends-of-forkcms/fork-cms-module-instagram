@@ -3,10 +3,8 @@
 {% block actionbar %}
   <div class="btn-toolbar pull-right">
     <div class="btn-group" role="group">
-      {% if showInstagramLogout %}
-          {% if not authenticate %}
+      {% if showInstagramLogout and not authenticate %}
           {{ macro.buttonIcon( geturl('Logout'), 'close', 'lbl.Logout'|trans|ucfirst) }}
-          {% endif %}
       {% endif %}
     </div>
   </div>
