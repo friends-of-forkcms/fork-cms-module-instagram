@@ -1,5 +1,15 @@
 {% extends '/Layout/Templates/base.html.twig' %}
 
+{% block actionbar %}
+  <div class="btn-toolbar pull-right">
+    <div class="btn-group" role="group">
+      {% if showInstagramLogout %}
+          {{ macro.buttonIcon( geturl('Logout'), 'close', 'lbl.Logout'|trans|ucfirst) }}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
 {% block content %}
     {% form settings %}
         <div class="row fork-module-content">
