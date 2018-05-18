@@ -36,8 +36,7 @@ class Installer extends ModuleInstaller
         $this->setSetting('Instagram', 'num_recent_items', 10);
         $this->setSetting('Instagram', 'client_id', null);
         $this->setSetting('Instagram', 'client_secret', null);
-        $this->setSetting('Instagram', 'username', null);
-        $this->setSetting('Instagram', 'user_id', null);
+        $this->setSetting('Instagram', 'default_instagram_user_id', null);
         $this->setSetting('Instagram', 'access_token', null);
 
         // Set navigation
