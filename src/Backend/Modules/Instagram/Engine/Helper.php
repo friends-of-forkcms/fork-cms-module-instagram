@@ -109,6 +109,7 @@ class Helper
      */
     public static function getLoginUrl($clientId, $callbackUrl)
     {
+        // We can add "&scope=basic+public_content" or other permissions.
         return self::API_OAUTH_URL . '?client_id=' . $clientId . '&redirect_uri=' . urlencode($callbackUrl) . '&response_type=code';
     }
 
