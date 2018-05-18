@@ -1,7 +1,12 @@
-# README
+# Instagram module for Fork CMS
 
-## Description
-The Fork CMS Instagram module let's you display the X most recent Instagram images for one (or multiple) users.
+> The Instagram module let's you display the X most recent Instagram images for one (or multiple) users.
+
+**Download:**
+* [Module for Fork CMS 4.*](https://github.com/friends-of-forkcms/fork-cms-module-instagram/archive/1.0.0.zip)
+
+**Features:**
+* Widget: show recent images from Instagram feed from one or multiple users.
 
 ## Preview
 [ ![Image](http://i.imgur.com/6pT2cYdm.png "Backend") ](http://i.imgur.com/6pT2cYd.png)
@@ -18,15 +23,15 @@ The Fork CMS Instagram module let's you display the X most recent Instagram imag
 6. Copy the client id and client secret to the Fork settings page and press the authenticate button. You get redirected to an Instagram page where you need to authorize the request. After that, you get redirected back to the Fork CMS settings and you’re logged in.
 7. Have fun!
 
-## TODO
-- [ ] Create Instagram feeds based on hashtags
+## Contributing
 
-## Bugs
-If you encounter any bugs, please create an issue and I'll try to fix it (or feel free to fix it yourself with a pull-request).
+It would be great if you could help us improve the module. GitHub does a great job in managing collaboration by providing different tools, the only thing you need is a [GitHub](https://github.com/) login.
 
-## Discussion
-- Twitter: [@jessedobbelaere](https://www.twitter.com/jessedobbelaere)
-- E-mail: <jesse@dobbelaere-ae.be> for any questions or remarks.
-- Slack: [Fork CMS Slack channel](https://fork-cms.herokuapp.com)
+* Use **Pull requests** to add or update code
+* **Issues** for bug reporting or code discussions
 
-Credits to @waldocosman for his original Instagram module, the inspiration for this module.
+More info on how to work with GitHub on [help.github.com](https://help.github.com).
+
+## License
+
+The module is licensed under MIT. In short, this license allows you to do everything as long as the copyright statement stays present.
