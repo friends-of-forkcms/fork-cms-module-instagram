@@ -17,7 +17,7 @@ class Model
      * @param string $id
      * @return array
      */
-    public static function get($id)
+    public static function get($id): array
     {
         $item = (array) FrontendModel::get('database')->getRecord(
             'SELECT i.*
@@ -37,6 +37,7 @@ class Model
     public static function getRecentMedia($userId, $count = 10)
     {
         $recentData = Helper::getUserMedia($userId, $count);
+
         return (isset($recentData) && isset($recentData->data)) ? $recentData->data : null;
     }
 }

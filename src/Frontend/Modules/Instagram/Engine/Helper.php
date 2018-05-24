@@ -24,6 +24,7 @@ class Helper
      * @param int $limit Limit of returned results
      *
      * @return mixed
+     * @throws \Exception
      */
     public static function getUserMedia($id = 'self', $limit = 0)
     {
@@ -106,7 +107,7 @@ class Helper
      *
      * @return array
      */
-    private static function processHeaders($headerContent)
+    private static function processHeaders($headerContent): array
     {
         $headers = array();
         foreach (explode("\r\n", $headerContent) as $i => $line) {
@@ -123,9 +124,9 @@ class Helper
     /**
      * Get the API key (client ID) from the settings
      *
-     * @return String The API key
+     * @return string The API key
      */
-    private static function getApiKey()
+    private static function getApiKey(): string
     {
         return FrontendModel::get('fork.settings')->get('Instagram', 'client_id');
     }
@@ -133,9 +134,9 @@ class Helper
     /**
      * Get the access token from the settings
      *
-     * @return String Access token
+     * @return string Access token
      */
-    private static function getAccessToken()
+    private static function getAccessToken(): string
     {
         return FrontendModel::get('fork.settings')->get('Instagram', 'access_token');
     }

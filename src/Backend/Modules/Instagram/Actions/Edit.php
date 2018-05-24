@@ -4,8 +4,8 @@ namespace Backend\Modules\Instagram\Actions;
 
 use Backend\Core\Engine\Base\ActionEdit;
 use Backend\Core\Engine\Form;
-use Backend\Core\Engine\Language;
 use Backend\Core\Engine\Model;
+use Backend\Core\Language\Language;
 use Backend\Modules\Instagram\Engine\Helper;
 use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
@@ -19,7 +19,7 @@ class Edit extends ActionEdit
     /**
      * Execute the action
      */
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
 
@@ -34,63 +34,63 @@ class Edit extends ActionEdit
     /**
      * Load the item data
      */
-    protected function loadData()
+    protected function loadData(): void
     {
-        $this->id = $this->getParameter('id', 'int', null);
+        $this->id = $this->getRequest()->query->getInt('id');
         if ($this->id == null || !BackendInstagramModel::exists($this->id)) {
-            $this->redirect(Model::createURLForAction('Index') . '&error=non-existing');
+            $this->redirect(Model::createUrlForAction('Index') . '&error=non-existing');
         }
 
         $this->record = BackendInstagramModel::get($this->id);
 
         if ($this->record['locked'] == 'Y') {
-            $this->redirect(Model::createURLForAction('Index') . '&error=is-locked');
+            $this->redirect(Model::createUrlForAction('Index') . '&error=is-locked');
         }
     }
 
     /**
      * Load the form
      */
-    protected function loadForm()
+    protected function loadForm(): void
     {
         // Create form
-        $this->frm = new Form('edit');
-        $this->frm->addText('username', $this->record['username'], null, 'inputText title', 'inputTextError title');
+        $this->form = new Form('edit');
+        $this->form->addText('username', $this->record['username'], null, 'inputText title', 'inputTextError title');
     }
 
     /**
      * Parse the page
      */
-    protected function parse()
+    protected function parse(): void
     {
         parent::parse();
 
         // Get url
-        $url = Model::getURLForBlock($this->URL->getModule(), 'Detail');
+        $url = Model::getURLForBlock($this->url->getModule(), 'Detail');
         $url404 = Model::getURL(404);
 
         // Parse additional variables
         if ($url404 != $url) {
-            $this->tpl->assign('detailURL', SITE_URL . $url);
+            $this->template->assign('detailURL', SITE_URL . $url);
         }
 
-        $this->tpl->assign('item', $this->record);
+        $this->template->assign('item', $this->record);
     }
 
     /**
      * Validate the form
      */
-    protected function validateForm()
+    protected function validateForm(): void
     {
-        if ($this->frm->isSubmitted()) {
-            $this->frm->cleanupFields();
+        if ($this->form->isSubmitted()) {
+            $this->form->cleanupFields();
 
             // validation
-            $fields = $this->frm->getFields();
+            $fields = $this->form->getFields();
 
             $fields['username']->isFilled(Language::err('FieldIsRequired'));
 
-            if ($this->frm->isCorrect()) {
+            if ($this->form->isCorrect()) {
                 $item['id'] = $this->id;
 
                 $item['username'] = $fields['username']->getValue();
@@ -101,14 +101,13 @@ class Edit extends ActionEdit
                     $userId = $userObj->data[0]->id;
                     $item['user_id'] = $userId;
                 } else {
-                    $this->redirect(Model::createURLForAction('Index') . '&error=api_error');
+                    $this->redirect(Model::createUrlForAction('Index') . '&error=api_error');
                 }
 
                 BackendInstagramModel::update($item);
                 $item['id'] = $this->id;
 
-                Model::triggerEvent($this->getModule(), 'after_edit', $item);
-                $this->redirect(Model::createURLForAction('Index') . '&report=edited&highlight=row-' . $item['id']);
+                $this->redirect(Model::createUrlForAction('Index') . '&report=edited&highlight=row-' . $item['id']);
             }
         }
     }

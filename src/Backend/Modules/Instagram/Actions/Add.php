@@ -4,9 +4,9 @@ namespace Backend\Modules\Instagram\Actions;
 
 use Backend\Core\Engine\Base\ActionAdd;
 use Backend\Core\Engine\Form;
-use Backend\Core\Engine\Language;
 use Backend\Core\Engine\Meta;
 use Backend\Core\Engine\Model;
+use Backend\Core\Language\Language;
 use Backend\Modules\Instagram\Engine\Helper;
 use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
@@ -20,7 +20,7 @@ class Add extends ActionAdd
     /**
      * Execute the actions
      */
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
 
@@ -34,47 +34,39 @@ class Add extends ActionAdd
     /**
      * Load the form
      */
-    protected function loadForm()
+    protected function loadForm(): void
     {
-        $this->frm = new Form('add');
+        $this->form = new Form('add');
+        $this->form->addText('username', null, null, 'inputText title', 'inputTextError title');
 
-        $this->frm->addText('username', null, null, 'inputText title', 'inputTextError title');
-
-        // Meta
-        $this->meta = new Meta($this->frm, null, 'username', true);
+        $this->meta = new Meta($this->form, null, 'username', true);
     }
 
-    /**
-     * Parse the page
-     */
-    protected function parse()
+    protected function parse(): void
     {
         parent::parse();
 
         // Get url
-        $url = Model::getURLForBlock($this->URL->getModule(), 'Detail');
+        $url = Model::getURLForBlock($this->url->getModule(), 'Detail');
         $url404 = Model::getURL(404);
 
         // Parse additional variables
         if ($url404 != $url) {
-            $this->tpl->assign('detailURL', SITE_URL . $url);
+            $this->template->assign('detailURL', SITE_URL . $url);
         }
     }
 
-    /**
-     * Validate the form
-     */
-    protected function validateForm()
+    protected function validateForm(): void
     {
-        if ($this->frm->isSubmitted()) {
-            $this->frm->cleanupFields();
+        if ($this->form->isSubmitted()) {
+            $this->form->cleanupFields();
 
             // Validation
-            $fields = $this->frm->getFields();
+            $fields = $this->form->getFields();
 
             $fields['username']->isFilled(Language::err('FieldIsRequired'));
 
-            if ($this->frm->isCorrect()) {
+            if ($this->form->isCorrect()) {
                 // Build the item
                 $item['username'] = $fields['username']->getValue();
 
@@ -84,14 +76,13 @@ class Add extends ActionAdd
                     $userId = $userObj->data[0]->id;
                     $item['user_id'] = $userId;
                 } else {
-                    $this->redirect(Model::createURLForAction('Index') . '&error=api_error');
+                    $this->redirect(Model::createUrlForAction('Index') . '&error=api_error');
                 }
 
                 // Insert it
                 $item['id'] = BackendInstagramModel::insert($item);
-                Model::triggerEvent($this->getModule(), 'after_add', $item);
 
-                $this->redirect(Model::createURLForAction('Index') . '&report=added&highlight=row-' . $item['id']);
+                $this->redirect(Model::createUrlForAction('Index') . '&report=added&highlight=row-' . $item['id']);
             }
         }
     }

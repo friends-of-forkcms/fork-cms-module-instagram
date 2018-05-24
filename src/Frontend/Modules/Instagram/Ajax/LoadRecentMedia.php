@@ -5,6 +5,7 @@ namespace Frontend\Modules\Instagram\Ajax;
 use Frontend\Core\Engine\Base\AjaxAction as FrontendBaseAJAXAction;
 use Frontend\Core\Engine\Model as FrontendModel;
 use Frontend\Modules\Instagram\Engine\Model as FrontendInstagramModel;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Fetches the recent user media and passes it back to javascript
@@ -13,33 +14,18 @@ use Frontend\Modules\Instagram\Engine\Model as FrontendInstagramModel;
  */
 class LoadRecentMedia extends FrontendBaseAJAXAction
 {
-    /**
-     * @var int The recent images count limit
-     */
-    private $recentCount = 10;
-
-    /**
-     * @var array The fetched images
-     */
-    private $images;
-
-    /**
-     * Execute the action
-     */
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
 
-        // Get POST parameters
-        $userId = \SpoonFilter::getPostValue('userId', null, '');
+        $this->output(Response::HTTP_OK, $this->getRecentMedia());
+    }
 
-        // Get count settings
-        $this->recentCount = FrontendModel::get('fork.settings')->get('Instagram', 'num_recent_items', 10);
-
-        // Get the images from the Instagram API
-        $this->images = FrontendInstagramModel::getRecentMedia($userId, $this->recentCount);
-
-        // Output the result
-        $this->output(self::OK, $this->images);
+    private function getRecentMedia(): array
+    {
+        return FrontendInstagramModel::getRecentMedia(
+            $this->getRequest()->request->get('userId'),
+            FrontendModel::get('fork.settings')->get('Instagram', 'num_recent_items', 10)
+        );
     }
 }

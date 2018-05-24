@@ -16,7 +16,7 @@ class Settings extends BackendBaseActionEdit
     /**
      * Execute the action
      */
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
 
@@ -30,24 +30,24 @@ class Settings extends BackendBaseActionEdit
     /**
      * Loads the settings form
      */
-    private function loadForm()
+    private function loadForm(): void
     {
         // Init settings form
-        $this->frm = new BackendForm('settings');
+        $this->form = new BackendForm('settings');
 
         // We are not authenticated, so let the user fill in their credentials
-        if ($this->get('fork.settings')->get($this->URL->getModule(), 'access_token') == '') {
-            $this->frm->addText('client_id', $this->get('fork.settings')->get($this->URL->getModule(), 'client_id'));
-            $this->frm->addText('client_secret', $this->get('fork.settings')->get($this->URL->getModule(), 'client_secret'));
-            $this->tpl->assign('authenticate', true);
+        if ($this->get('fork.settings')->get($this->url->getModule(), 'access_token') == '') {
+            $this->form->addText('client_id', $this->get('fork.settings')->get($this->url->getModule(), 'client_id'));
+            $this->form->addText('client_secret', $this->get('fork.settings')->get($this->url->getModule(), 'client_secret'));
+            $this->template->assign('authenticate', true);
 
             return;
         } else {
             // Total number of recent images fetched by the module
-            $this->frm->addDropdown(
+            $this->form->addDropdown(
                 'num_recent_items',
                 array_combine(range(1, 20), range(1, 20)),
-                $this->get('fork.settings')->get($this->URL->getModule(), 'num_recent_items', 10)
+                $this->get('fork.settings')->get($this->url->getModule(), 'num_recent_items', 10)
             );
         }
     }
@@ -55,46 +55,43 @@ class Settings extends BackendBaseActionEdit
     /**
      * Validates the settings form
      */
-    private function validateForm()
+    private function validateForm(): void
     {
-        if (!$this->frm->isSubmitted()) {
-            return false;
+        if (!$this->form->isSubmitted()) {
+            return;
         }
 
-        if ($this->frm->existsField('num_recent_items')) {
+        if ($this->form->existsField('num_recent_items')) {
             $this->get('fork.settings')->set(
-                $this->URL->getModule(),
+                $this->url->getModule(),
                 'num_recent_items',
-                (int) $this->frm->getField('num_recent_items')->getValue()
+                (int) $this->form->getField('num_recent_items')->getValue()
             );
 
-            // Trigger event
-            BackendModel::triggerEvent($this->getModule(), 'after_saved_settings');
-
             // Redirect to the settings page
-            $this->redirect(BackendModel::createURLForAction('Settings') . '&report=saved');
+            $this->redirect(BackendModel::createUrlForAction('Settings') . '&report=saved');
         }
 
-        if ($this->frm->existsField('client_id') && $this->frm->existsField('client_secret')) {
-            return $this->validateAuthConfigForm();
+        if ($this->form->existsField('client_id') && $this->form->existsField('client_secret')) {
+            $this->validateAuthConfigForm();
         }
     }
 
-    private function validateAuthConfigForm()
+    private function validateAuthConfigForm(): void
     {
         $this->get('fork.settings')->set(
-            $this->URL->getModule(),
+            $this->url->getModule(),
             'client_id',
-            $this->frm->getField('client_id')->getValue()
+            $this->form->getField('client_id')->getValue()
         );
 
         $this->get('fork.settings')->set(
-            $this->URL->getModule(),
+            $this->url->getModule(),
             'client_secret',
-            $this->frm->getField('client_secret')->getValue()
+            $this->form->getField('client_secret')->getValue()
         );
 
         // We need to authenticate, redirect to oauth
-        $this->redirect(BackendModel::createURLForAction('oauth'));
+        $this->redirect(BackendModel::createUrlForAction('oauth'));
     }
 }

@@ -4,9 +4,9 @@ namespace Backend\Modules\Instagram\Actions;
 
 use Backend\Core\Engine\Base\ActionIndex as BackendBaseActionIndex;
 use Backend\Core\Engine\Authentication;
-use Backend\Core\Engine\DataGridDB;
-use Backend\Core\Engine\Language;
+use Backend\Core\Engine\DataGridDatabase;
 use Backend\Core\Engine\Model;
+use Backend\Core\Language\Language;
 use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
@@ -19,7 +19,7 @@ class Index extends BackendBaseActionIndex
     /**
      * Execute the action
      */
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
         $this->loadDataGrid();
@@ -31,9 +31,9 @@ class Index extends BackendBaseActionIndex
     /**
      * Load the dataGrid
      */
-    protected function loadDataGrid()
+    protected function loadDataGrid(): void
     {
-        $this->dataGrid = new DataGridDB(
+        $this->dataGrid = new DataGridDatabase(
             BackendInstagramModel::QRY_DATAGRID_BROWSE,
             Language::getWorkingLanguage()
         );
@@ -48,11 +48,11 @@ class Index extends BackendBaseActionIndex
         if (Authentication::isAllowedAction('Edit')) {
             $this->dataGrid->addColumn(
                 'edit', null, Language::lbl('Edit'),
-                Model::createURLForAction('Edit') . '&amp;id=[id]',
+                Model::createUrlForAction('Edit') . '&amp;id=[id]',
                 Language::lbl('Edit')
             );
             $this->dataGrid->setColumnURL(
-                'username', Model::createURLForAction('Edit') . '&amp;id=[id]'
+                'username', Model::createUrlForAction('Edit') . '&amp;id=[id]'
             );
         }
     }
@@ -60,9 +60,9 @@ class Index extends BackendBaseActionIndex
     /**
      * Parse the page
      */
-    protected function parse()
+    protected function parse(): void
     {
         // parse the dataGrid if there are results
-        $this->tpl->assign('dataGrid', (string) $this->dataGrid->getContent());
+        $this->template->assign('dataGrid', (string) $this->dataGrid->getContent());
     }
 }

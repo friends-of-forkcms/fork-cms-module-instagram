@@ -17,27 +17,27 @@ class Oauth extends BackendBaseAction
     /**
      * Execute the action
      */
-    public function execute()
+    public function execute(): void
     {
         parent::execute();
 
         // Get the redirect code if there is one (if you are redirected here from the Instagram authentication)
-        $oAuthCode = $this->getParameter('code', 'string', '');
+        $oAuthCode = $this->getRequest()->query->get('code');
 
         // Get settings
         $settingsService = $this->get('fork.settings');
-        $client_id = $settingsService->get($this->URL->getModule(), 'client_id');
-        $client_secret = $settingsService->get($this->URL->getModule(), 'client_secret');
+        $client_id = $settingsService->get($this->url->getModule(), 'client_id');
+        $client_secret = $settingsService->get($this->url->getModule(), 'client_secret');
 
         // If no settings configured, redirect
         if (empty($client_id) || empty($client_secret)) {
-            $this->redirect(BackendModel::createURLForAction('Settings') . '&error=non-existing');
+            $this->redirect(BackendModel::createUrlForAction('Settings') . '&error=non-existing');
         }
 
         // First visit? (otherwise instagram would have added a parameter)
         if ($oAuthCode == '') {
             // Get Instagram api token
-            $instagram_login_url = Helper::getLoginUrl($client_id, SITE_URL . BackendModel::createURLForAction('Oauth'));
+            $instagram_login_url = Helper::getLoginUrl($client_id, SITE_URL . BackendModel::createUrlForAction('Oauth'));
             $this->redirect($instagram_login_url);
         }
 
@@ -48,7 +48,7 @@ class Oauth extends BackendBaseAction
                 $client_id,
                 $client_secret,
                 $oAuthCode,
-                SITE_URL . BackendModel::createURLForAction('Oauth'),
+                SITE_URL . BackendModel::createUrlForAction('Oauth'),
                 false
             );
 
@@ -68,25 +68,22 @@ class Oauth extends BackendBaseAction
 
                 // Save access_token to settings
                 $this->get('fork.settings')->set(
-                    $this->URL->getModule(),
+                    $this->url->getModule(),
                     'access_token',
                     $accessToken
                 );
 
                 // Save access_token to settings
                 $this->get('fork.settings')->set(
-                    $this->URL->getModule(),
+                    $this->url->getModule(),
                     'default_instagram_user_id',
                     $instagramUser['id']
                 );
 
-                // Trigger event
-                BackendModel::triggerEvent($this->getModule(), 'after_oauth');
-
                 // Successfully authenticated
-                $this->redirect(BackendModel::createURLForAction('Settings') . '&report=authentication_success');
+                $this->redirect(BackendModel::createUrlForAction('Settings') . '&report=authentication_success');
             } else {
-                $this->redirect(BackendModel::createURLForAction('Settings') . '&error=authentication_failed');
+                $this->redirect(BackendModel::createUrlForAction('Settings') . '&error=authentication_failed');
             }
         }
     }

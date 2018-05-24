@@ -2,8 +2,9 @@
 
 namespace Backend\Modules\Instagram\Engine;
 
-use Backend\Core\Engine\Language;
 use Backend\Core\Engine\Model as BackendModel;
+use Backend\Core\Language\Language;
+use Common\ModuleExtraType;
 
 /**
  * In this file we store all generic functions that we will be using in the instagram module
@@ -21,7 +22,7 @@ class Model
      *
      * @param int $id
      */
-    public static function delete($id)
+    public static function delete($id): void
     {
         $record = self::get($id);
 
@@ -38,7 +39,7 @@ class Model
      * @param int $id
      * @return bool
      */
-    public static function exists($id)
+    public static function exists($id): bool
     {
         return (bool) BackendModel::get('database')->getVar(
             'SELECT 1
@@ -55,7 +56,7 @@ class Model
      * @param int $id
      * @return array
      */
-    public static function get($id)
+    public static function get($id): array
     {
         return (array) BackendModel::get('database')->getRecord(
             'SELECT i.*
@@ -70,8 +71,10 @@ class Model
      *
      * @param array $item
      * @return int
+     * @throws \Backend\Core\Engine\Exception
+     * @throws \Exception
      */
-    public static function insert(array $item)
+    public static function insert(array $item): int
     {
         $item['created_on'] = BackendModel::getUTCDate();
         $item['edited_on'] = BackendModel::getUTCDate();
@@ -79,7 +82,7 @@ class Model
 
         // insert extra
         $item['extra_id'] = BackendModel::insertExtra(
-            'widget',
+            ModuleExtraType::widget(),
             'Instagram',
             'InstagramFeed'
         );
@@ -92,8 +95,8 @@ class Model
             'data',
             array(
                 'id' => $item['id'],
-                'extra_label' => \SpoonFilter::ucfirst(Language::lbl('Instagram', 'InstagramFeed')) . ': ' . $item['username'],
-                'edit_url' => BackendModel::createURLForAction(
+                'extra_label' => ucfirst(Language::lbl('Instagram', 'InstagramFeed')) . ': ' . $item['username'],
+                'edit_url' => BackendModel::createUrlForAction(
                         'Edit',
                         'Instagram',
                         null
@@ -109,7 +112,7 @@ class Model
      *
      * @param array $item
      */
-    public static function update(array $item)
+    public static function update(array $item): void
     {
         $item['edited_on'] = BackendModel::getUTCDate();
 

@@ -2,7 +2,7 @@
 
 namespace Frontend\Modules\Instagram\Widgets;
 
-use Frontend\Core\Engine\Base\Widget as FrontendBaseWidget;
+use Frontend\Core\Engine\Base\Widget;
 use Frontend\Modules\Instagram\Engine\Model as FrontendInstagramModel;
 
 /**
@@ -10,42 +10,19 @@ use Frontend\Modules\Instagram\Engine\Model as FrontendInstagramModel;
  *
  * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
-class InstagramFeed extends FrontendBaseWidget
+class InstagramFeed extends Widget
 {
-    /**
-    * Execute the extra
-    *
-    * @return	void
-    */
-    public function execute()
+    public function execute(): void
     {
-        // call the parent
-        parent::execute();
-
-        // load template
-        $this->loadTemplate();
-
-        // parse
-        $this->parse();
-    }
-
-    /**
-    * Parse the data into the template
-    *
-    * @return	void
-    */
-    private function parse()
-    {
-        // Add css
         $this->header->addCSS('/src/Frontend/Modules/' . $this->getModule() . '/Layout/Css/Instagram.css');
 
-        // Fetch instagram user
+        parent::execute();
+
+        // Parse instagram user
         $instagramUser = FrontendInstagramModel::get($this->data['id']);
-
-        // Pass user info to javascript
         $this->addJSData('user', $instagramUser);
+        $this->template->assign('user', $instagramUser);
 
-        // Parse user info in template
-        $this->tpl->assign('user', $instagramUser);
+        $this->loadTemplate();
     }
 }

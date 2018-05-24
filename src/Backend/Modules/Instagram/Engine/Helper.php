@@ -38,6 +38,7 @@ class Helper
      * @param bool $token If it's true, only the access token will be returned
      *
      * @return mixed
+     * @throws \Exception
      */
     public static function getOAuthToken($clientId, $clientSecret, $code, $callbackUrl, $token = false)
     {
@@ -61,6 +62,7 @@ class Helper
      * @param int $limit Limit of returned results
      *
      * @return mixed
+     * @throws \Exception
      */
     public static function searchUser($name, $limit = 0)
     {
@@ -107,7 +109,7 @@ class Helper
      * @return string Instagram OAuth login URL
      * @throws \Exception
      */
-    public static function getLoginUrl($clientId, $callbackUrl)
+    public static function getLoginUrl($clientId, $callbackUrl): string
     {
         // We can add "&scope=basic+public_content" or other permissions.
         return self::API_OAUTH_URL . '?client_id=' . $clientId . '&redirect_uri=' . urlencode($callbackUrl) . '&response_type=code';
@@ -181,7 +183,7 @@ class Helper
      * @param array
      * @return array
      */
-    private static function processHeaders($headerContent)
+    private static function processHeaders($headerContent): array
     {
         $headers = array();
         foreach (explode("\r\n", $headerContent) as $i => $line) {
@@ -197,9 +199,9 @@ class Helper
     /**
      * Get the API key (client ID) from the settings
      *
-     * @return String The API key
+     * @return string The API key
      */
-    private static function getApiKey()
+    private static function getApiKey(): string
     {
         return BackendModel::get('fork.settings')->get('Instagram', 'client_id');
     }
@@ -207,9 +209,9 @@ class Helper
     /**
      * Get the access token from the settings
      *
-     * @return String Access token
+     * @return string Access token
      */
-    private static function getAccessToken()
+    private static function getAccessToken(): string
     {
         return BackendModel::get('fork.settings')->get('Instagram', 'access_token');
     }

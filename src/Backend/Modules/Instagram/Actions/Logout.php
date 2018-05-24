@@ -16,12 +16,12 @@ class Logout extends BackendBaseAction
     /**
      * Execute the action
      */
-    public function execute()
+    public function execute(): void
     {
         $settingsService = $this->get('fork.settings');
 
         // Save access_token to settings
-        $instagramUserId = $settingsService->get($this->URL->getModule(), 'default_instagram_user_id', false);
+        $instagramUserId = $settingsService->get($this->url->getModule(), 'default_instagram_user_id', false);
 
         if ($instagramUserId) {
             BackendInstagramModel::delete($instagramUserId);
@@ -33,6 +33,6 @@ class Logout extends BackendBaseAction
         $settingsService->set('Instagram', 'access_token', null);
         $settingsService->set('Instagram', 'default_instagram_user_id', null);
 
-        $this->redirect(BackendModel::createURLForAction('Settings'));
+        $this->redirect(BackendModel::createUrlForAction('Settings'));
     }
 }
