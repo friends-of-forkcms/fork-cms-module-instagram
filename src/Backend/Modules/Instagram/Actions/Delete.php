@@ -8,8 +8,6 @@ use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the delete-action, it deletes an item
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Delete extends ActionDelete
 {

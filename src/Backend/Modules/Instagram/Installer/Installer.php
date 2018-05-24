@@ -6,8 +6,6 @@ use Backend\Core\Installer\ModuleInstaller;
 
 /**
  * Installer for the instagram module
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Installer extends ModuleInstaller
 {

@@ -7,8 +7,6 @@ use Backend\Core\Engine\Model as BackendModel;
 /**
  * In this file we store all generic functions that we will be using in the instagram module.
  * Created with help from https://github.com/cosenary/Instagram-PHP-API
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Helper
 {

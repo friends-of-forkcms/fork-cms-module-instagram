@@ -7,8 +7,6 @@ use Frontend\Modules\Instagram\Engine\Model as FrontendInstagramModel;
 
 /**
  * This is the instagram feed widget
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class InstagramFeed extends Widget
 {

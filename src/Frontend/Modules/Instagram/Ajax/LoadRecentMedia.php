@@ -9,8 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Fetches the recent user media and passes it back to javascript
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class LoadRecentMedia extends FrontendBaseAJAXAction
 {

@@ -1,7 +1,5 @@
 /**
  * Javascript for the Instagram module
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 jsFrontend.instagram =
 {

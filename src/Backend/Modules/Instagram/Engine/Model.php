@@ -8,8 +8,6 @@ use Common\ModuleExtraType;
 
 /**
  * In this file we store all generic functions that we will be using in the instagram module
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Model
 {

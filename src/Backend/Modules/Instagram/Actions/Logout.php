@@ -8,8 +8,6 @@ use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the logout-action, it will remove the settings
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Logout extends BackendBaseAction
 {

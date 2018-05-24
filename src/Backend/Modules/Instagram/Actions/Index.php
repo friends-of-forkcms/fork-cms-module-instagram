@@ -11,8 +11,6 @@ use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the index-action (default), it will display the overview
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Index extends BackendBaseActionIndex
 {

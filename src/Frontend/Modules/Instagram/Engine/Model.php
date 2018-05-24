@@ -6,8 +6,6 @@ use Frontend\Core\Engine\Model as FrontendModel;
 
 /**
  * The frontend Instagram Model
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Model
 {

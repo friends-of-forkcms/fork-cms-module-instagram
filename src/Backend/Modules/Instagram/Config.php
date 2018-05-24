@@ -6,8 +6,6 @@ use Backend\Core\Engine\Base\Config as BackendBaseConfig;
 
 /**
  * This is the configuration-object for the instagram module
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Config extends BackendBaseConfig
 {

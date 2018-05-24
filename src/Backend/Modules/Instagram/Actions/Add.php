@@ -12,8 +12,6 @@ use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the add-action, it will display a form to create a new item
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Add extends ActionAdd
 {

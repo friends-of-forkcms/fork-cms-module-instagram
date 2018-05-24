@@ -9,8 +9,6 @@ use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the settings-action, it will display a form to set general instagram settings
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Oauth extends BackendBaseAction
 {

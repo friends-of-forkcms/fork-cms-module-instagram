@@ -11,8 +11,6 @@ use Backend\Modules\Instagram\Engine\Model as BackendInstagramModel;
 
 /**
  * This is the edit-action, it will display a form with the item data to edit
- *
- * @author Jesse Dobbelaere <jesse@dobbelae.re>
  */
 class Edit extends ActionEdit
 {
