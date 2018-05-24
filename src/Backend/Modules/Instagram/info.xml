@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module>
 	<name>Instagram</name>
-	<version>2.0.0</version>
+	<version>3.0.0</version>
 	<requirements>
-		<minimum_version>4.0.0</minimum_version>
+		<minimum_version>5.0.0</minimum_version>
 	</requirements>
 	<description>
 		<![CDATA[
@@ -15,9 +15,9 @@
 			<name><![CDATA[Jesse Dobbelaere]]></name>
 			<url><![CDATA[http://www.jessedobbelae.re]]></url>
 		</author>
+    <author>
+      <name><![CDATA[Jeroen Desloovere]]></name>
+      <url><![CDATA[http://www.jeroendesloovere.re]]></url>
+    </author>
 	</authors>
-	<events>
-		<event application="backend" name="after_saved_settings"><![CDATA[Triggered when the Instagram settings are saved.]]></event>
-		<event application="backend" name="after_oauth"><![CDATA[Triggered when the Instagram oauth is done.]]></event>
-	</events>
 </module>
