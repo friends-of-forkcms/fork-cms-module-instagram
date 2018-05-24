@@ -1,3 +1,7 @@
+3.0.0
+--
+* Switch to Fork CMS v5
+
 2.0.0
 --
 * Switch to Fork CMS v4 with Twig template support

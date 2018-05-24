@@ -3,6 +3,7 @@
 > The Instagram module let's you display the X most recent Instagram images for one (or multiple) users.
 
 **Download:**
+* [Module for Fork CMS 5.*](https://github.com/friends-of-forkcms/fork-cms-module-instagram/archive/master.zip)
 * [Module for Fork CMS 4.*](https://github.com/friends-of-forkcms/fork-cms-module-instagram/archive/2.0.0.zip)
 * [Module for Fork CMS 3.7.* to 3.9.*](https://github.com/friends-of-forkcms/fork-cms-module-instagram/archive/1.0.1.zip)
 
