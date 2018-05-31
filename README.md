@@ -25,6 +25,10 @@
 6. Copy the client id and client secret to the Fork settings page and press the authenticate button. You get redirected to an Instagram page where you need to authorize the request. After that, you get redirected back to the Fork CMS settings and you’re logged in.
 7. Have fun!
 
+## How to get access token when you are working locally
+
+[Instructions](docs/getting-access-token-locally.md)
+
 ## Contributing
 
 It would be great if you could help us improve the module. GitHub does a great job in managing collaboration by providing different tools, the only thing you need is a [GitHub](https://github.com/) login.
