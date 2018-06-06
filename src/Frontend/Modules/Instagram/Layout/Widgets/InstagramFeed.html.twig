@@ -1,10 +1,22 @@
-<section id="instagramWidget" class="mod">
+{#
+  Available values:
+    - user
+#}
+
+<section class="module-instagram widget-instagram-instagram-feed">
 	<div class="inner">
-		<header class="hd">
-			<h3>{{ user.username }}</h3>
-		</header>
-		<div class="bd">
-			<ul class="instagram-grid-container js-instagram-container"></ul>
-		</div>
+    {% block widget_heading %}
+      <header class="widget-heading">
+        <h3>{{ user.username }}</h3>
+      </header>
+    {% endblock %}
+
+    {% block widget_body %}
+      <div class="widget-body">
+        <ul class="instagram-grid-container js-instagram-container"></ul>
+      </div>
+    {% endblock %}
+
+    {% block widget_footer %}{% endblock %}
 	</div>
 </section>
