@@ -52,8 +52,12 @@ jsFrontend.instagram =
 	insertMedia: function(mediaObj)
 	{
 		var list = $('<li style="display: none; "></li>');
-		var anchor = $('<a href="' + mediaObj.link + '" title="' + mediaObj.caption.text + '" target="_blank"></a>');
-		var thumb = $('<img src="' + mediaObj.images.thumbnail.url + '" alt="' + mediaObj.caption.text + '" />');
+		var title = '';
+		if(mediaObj.caption !== null) {
+		    title = mediaObj.caption.text;
+        }
+		var anchor = $('<a href="' + mediaObj.link + '" title="' + title + '" target="_blank"></a>');
+		var thumb = $('<img src="' + mediaObj.images.thumbnail.url + '" alt="' + title + '" />');
 
 		// Append to container
 		$(thumb).appendTo(anchor);
