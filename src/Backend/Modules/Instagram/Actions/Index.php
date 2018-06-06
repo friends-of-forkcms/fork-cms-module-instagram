@@ -33,7 +33,7 @@ class Index extends BackendBaseActionIndex
     {
         $this->dataGrid = new DataGridDatabase(
             BackendInstagramModel::QRY_DATAGRID_BROWSE,
-            Language::getWorkingLanguage()
+            [Language::getWorkingLanguage()]
         );
 
         // Reform date
