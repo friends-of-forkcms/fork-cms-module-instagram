@@ -19,7 +19,7 @@ class LoadRecentMedia extends FrontendBaseAJAXAction
         $this->output(Response::HTTP_OK, $this->getRecentMedia());
     }
 
-    private function getRecentMedia(): array
+    private function getRecentMedia(): ?array
     {
         return FrontendInstagramModel::getRecentMedia(
             $this->getRequest()->request->get('userId'),
