@@ -54,8 +54,8 @@ jsFrontend.instagram =
 		var list = $('<li style="display: none; "></li>');
 		var title = '';
 		if(mediaObj.caption !== null) {
-		    title = mediaObj.caption.text;
-        }
+			title = mediaObj.caption.text;
+		}
 		var anchor = $('<a href="' + mediaObj.link + '" title="' + title + '" target="_blank"></a>');
 		var thumb = $('<img src="' + mediaObj.images.thumbnail.url + '" alt="' + title + '" />');
 
